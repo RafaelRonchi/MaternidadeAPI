@@ -1,4 +1,5 @@
-﻿using MaternidadeAPI.Servicos;
+﻿using MaternidadeAPI.Modelo;
+using MaternidadeAPI.Servicos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,18 +16,22 @@ namespace MaternidadeAPI.Controllers
             _maeServico = maeServico;
         }
 
-        [HttpGet("{id}/recemnascidos")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            await _maeServico.GetMaeByIdAsync(id);
-            return Ok();
+            var mae = await _maeServico.GetMaeByIdAsync(id);
+            return Ok(mae);
         }
 
-
-
-
-
-
-
+        [HttpPost]
+        public async Task<IActionResult> CreateMae(MaeModelo model)
+        {
+            if (model == null)
+            {
+                return BadRequest("Id da Gênero na URL não corresponde ao ID no corpo da requisição");
+            }
+            await _maeServico.CreateMaeAsync(model);
+            return NoContent();
+        }
     }
 }

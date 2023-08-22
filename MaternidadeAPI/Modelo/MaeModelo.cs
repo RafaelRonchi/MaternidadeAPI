@@ -24,11 +24,11 @@ namespace MaternidadeAPI.Modelo
 
         [DataType(DataType.PhoneNumber)]
         public string Telefone { get; set; } = string.Empty;
+
         public string EstadoCivil { get; set; } = string.Empty;
         public string Profissao { get; set; } = string.Empty;
         public string Etnia { get; set; } = string.Empty;
         public string Historico { get; set; } = string.Empty;
-
         // Relação
     }
 }

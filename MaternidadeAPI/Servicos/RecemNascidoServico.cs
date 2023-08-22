@@ -41,7 +41,6 @@ namespace MaternidadeAPI.Servicos
                 .ToListAsync();
         }
 
-
         public async Task<List<RecemNascidoModelo>> GetRecemNascidosMae(int id)
         {
             return await _contexto.RecemNascidos.Where(r => r.MaeId == id).ToListAsync();
@@ -58,8 +57,5 @@ namespace MaternidadeAPI.Servicos
             await _contexto.SaveChangesAsync();
             return recemNascido;
         }
-
-        
     }
-
 }

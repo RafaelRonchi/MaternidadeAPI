@@ -1,4 +1,5 @@
 ﻿using MaternidadeAPI.Data;
+using MaternidadeAPI.Modelo;
 
 namespace MaternidadeAPI.Servicos
 {
@@ -11,8 +12,9 @@ namespace MaternidadeAPI.Servicos
             _dataContext = dataContext;
         }
 
-
-
-
+        public Task<MaeModelo> GetMaeByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -15,6 +15,14 @@ namespace MaternidadeAPI.Controllers
             _maeServico = maeServico;
         }
 
+        [HttpGet("{id}/recemnascidos")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            await _maeServico.GetMaeByIdAsync(id);
+            return Ok();
+        }
+
+
 
 
 

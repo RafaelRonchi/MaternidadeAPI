@@ -14,7 +14,7 @@ namespace MaternidadeAPI.Servicos
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task DeleteRecemNascido(int Id)
+        public async Task DeleterRecemNascido(int Id)
         {
             var recemNascido = await _contexto.RecemNascidos.FindAsync(Id);
             if (recemNascido != null)
@@ -34,10 +34,13 @@ namespace MaternidadeAPI.Servicos
             return await _contexto.RecemNascidos.FindAsync(Id);
         }
 
-        public async Task<RecemNascidoModelo> GetRecemNascidoPeso(int Peso)
+        public async Task<List<RecemNascidoModelo>> GetRecemNascidoPeso(int peso, int id)
         {
-            return await _contexto.RecemNascidos.FirstOrDefaultAsync(r => r.PesoGramas == Peso);
+            return await _contexto.RecemNascidos
+                .Where(r => r.PesoGramas > peso && r.MaeId == id)
+                .ToListAsync();
         }
+
 
         public async Task<List<RecemNascidoModelo>> GetRecemNascidosMae(int id)
         {
@@ -56,5 +59,7 @@ namespace MaternidadeAPI.Servicos
             return recemNascido;
         }
 
+        
     }
+
 }

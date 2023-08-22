@@ -8,7 +8,7 @@ namespace MaternidadeAPI.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<MaeModelo> Maes { get; set; }
-        public DbSet<RecemNascidoModelo> RecemNascido { get; set; }
+        public DbSet<RecemNascidoModelo> RecemNascidos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

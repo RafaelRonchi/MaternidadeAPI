@@ -13,6 +13,6 @@ namespace MaternidadeAPI.Servicos
         Task DeleterRecemNascido(int Id);
         Task<RecemNascidoModelo> GetRecemNascidoGenero(string Genero);
         Task<RecemNascidoModelo> GetRecemNascidoId(int Id);
-        Task<RecemNascidoModelo> GetRecemNascidoPeso(int Peso);
+        Task<List<RecemNascidoModelo>> GetRecemNascidoPeso(int Peso, int Id);
     }
 }

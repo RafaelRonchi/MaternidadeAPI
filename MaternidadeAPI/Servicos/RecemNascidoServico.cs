@@ -1,6 +1,18 @@
-﻿namespace MaternidadeAPI.Servicos
+﻿using MaternidadeAPI.Data;
+
+namespace MaternidadeAPI.Servicos
 {
-    public class RecemNascidoServico
+    public class RecemNascidoServico : IRecemNascidoServico
     {
+        private readonly DataContext _dataContext;
+
+        public RecemNascidoServico(DataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
+
+
+
     }
 }

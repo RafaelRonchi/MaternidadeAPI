@@ -45,6 +45,15 @@ namespace MaternidadeAPI.Servicos
             throw new NotImplementedException();
         }
 
+
+
+        public async Task<List<MaeModelo>> GetMaeSolteiraAsync()
+        {
+            return await _context.Maes
+                .Where(m => m.EstadoCivil == "Solteira")
+                .ToListAsync();
+        }
+
         public async Task<List<MaeModelo>> GetMaeByEtniaAsync(string nomeEtnia)
         {
             return await _context.Maes

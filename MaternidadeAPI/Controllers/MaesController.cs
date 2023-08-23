@@ -34,6 +34,19 @@ namespace MaternidadeAPI.Controllers
             return NoContent();
         }
 
+
+
+
+        [HttpGet("mae=solteira")]
+        public async Task<ActionResult<List<MaeModelo>>> GetMaeSolteiraAsync()
+        {
+            var maes = await _maeServico.GetMaeSolteiraAsync();
+            if (maes == null || maes.Count == 0)
+                return NotFound($"Mãe solteira não encontrada.");
+
+            return Ok(maes);
+        }
+
         [HttpGet("etnia/{etnia}")]
         public async Task<ActionResult<List<MaeModelo>>> GetMaeByEtniaAsync(string etnia)
         {

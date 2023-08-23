@@ -28,8 +28,10 @@ namespace MaternidadeAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecemNascido(int id)
         {
-            await _recemNascidoServico.DeleteRecemNascido(id);
-            return Ok();
+            var response = await _recemNascidoServico.DeleteRecemNascido(id);
+            if (response == null) return NotFound($"Recém nascido: {id} Não encontrado");
+            
+            return Ok($"Recém nascido: {id} removido!");
         }
 
         [HttpPost("maes/{id}/recem-nascidos")]

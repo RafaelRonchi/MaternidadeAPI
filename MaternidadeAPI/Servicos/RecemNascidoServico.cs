@@ -20,14 +20,17 @@ namespace MaternidadeAPI.Servicos
             }
         }
 
-        public async Task DeleteRecemNascido(int Id)
+        public async Task<string> DeleteRecemNascido(int Id)
         {
             var recemNascido = await _contexto.RecemNascidos.FindAsync(Id);
             if (recemNascido != null)
             {
                 _contexto.RecemNascidos.Remove(recemNascido);
                 await _contexto.SaveChangesAsync();
+                return "removido";
             }
+
+            return null;
         }
 
         public async Task<List<RecemNascidoModelo>> GetRecemNascidoGenero(int Id, string Genero)

@@ -11,6 +11,7 @@ namespace MaternidadeAPI.Modelo
 
         public string Sobrenome { get; set; } = string.Empty;
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; } = DateTime.MinValue;
 
@@ -29,6 +30,5 @@ namespace MaternidadeAPI.Modelo
         public string Profissao { get; set; } = string.Empty;
         public string Etnia { get; set; } = string.Empty;
         public string Historico { get; set; } = string.Empty;
-        // Relação
     }
 }

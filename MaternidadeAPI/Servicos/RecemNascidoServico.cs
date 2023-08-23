@@ -2,6 +2,7 @@ using MaternidadeAPI.Data;
 using MaternidadeAPI.Modelo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace MaternidadeAPI.Servicos
 {
@@ -19,7 +20,7 @@ namespace MaternidadeAPI.Servicos
             }
         }
 
-        public async Task DeleterRecemNascido(int Id)
+        public async Task DeleteRecemNascido(int Id)
         {
             var recemNascido = await _contexto.RecemNascidos.FindAsync(Id);
             if (recemNascido != null)
@@ -29,9 +30,24 @@ namespace MaternidadeAPI.Servicos
             }
         }
 
-        public async Task<List<RecemNascidoModelo>> GetRecemNascidoGenero(int Id,string Genero)
+        public async Task<List<RecemNascidoModelo>> GetRecemNascidoGenero(int Id, string Genero)
         {
-            return await _contexto.RecemNascidos.Where(r => r.Genero == Genero && r.MaeId == Id).ToListAsync();
+            var recemNascidos = await _contexto.RecemNascidos.Where(r => r.Genero == Genero && r.MaeId == Id).ToListAsync();
+
+            foreach (var recemNascido in recemNascidos)
+            {
+                if (recemNascido.MaeId != 0) // Verifica se o ID da mãe está definido
+                {
+                    var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+
+                    if (mae != null)
+                    {
+                        recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
+                    }
+                }
+            }
+
+            return recemNascidos;
         }
 
         public async Task<RecemNascidoModelo> GetRecemNascidoId(int Id)
@@ -45,17 +61,7 @@ namespace MaternidadeAPI.Servicos
                 if (mae != null)
                 {
                     recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
-                    recemNascido.Mae.Profissao = mae.Profissao;
-                    recemNascido.Mae.Etnia = mae.Etnia;
-                    recemNascido.Mae.Cpf = mae.Cpf;
-                    recemNascido.Mae.Historico = mae.Historico;
-                    recemNascido.Mae.DataNascimento = mae.DataNascimento;
-                    recemNascido.Mae.Rg = mae.Rg;
-                    recemNascido.Mae.Endereco = mae.Endereco;
-                    recemNascido.Mae.EstadoCivil = mae.EstadoCivil;
-                    recemNascido.Mae.Telefone = mae.Telefone;
-                    recemNascido.Mae.Nome = mae.Nome;
-                    recemNascido.Mae.Sobrenome = mae.Sobrenome;
+
                 }
             }
 
@@ -66,26 +72,77 @@ namespace MaternidadeAPI.Servicos
 
         public async Task<List<RecemNascidoModelo>> GetRecemNascidoPeso(int peso, int id)
         {
-            return await _contexto.RecemNascidos
-                .Where(r => r.PesoGramas > peso && r.MaeId == id)
-                .ToListAsync();
+            var recemNascidos = await _contexto.RecemNascidos
+        .Where(r => r.PesoGramas > peso && r.MaeId == id)
+        .ToListAsync();
+
+            foreach (var recemNascido in recemNascidos)
+            {
+                if (recemNascido.MaeId != 0) // Verifica se o ID da mãe está definido
+                {
+                    var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+
+                    if (mae != null)
+                    {
+                        recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
+                    }
+                }
+            }
+
+            return recemNascidos;
         }
 
         public async Task<List<RecemNascidoModelo>> GetRecemNascidosMae(int id)
         {
-            return await _contexto.RecemNascidos.Where(r => r.MaeId == id).ToListAsync();
+            var recemNascidos = await _contexto.RecemNascidos.Where(r => r.MaeId == id).ToListAsync();
+
+            foreach (var recemNascido in recemNascidos)
+            {
+                if (recemNascido.MaeId != 0) // Verifica se o ID da mãe está definido
+                {
+                    var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+
+                    if (mae != null)
+                    {
+                        recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
+                    }
+                }
+            }
+
+            return recemNascidos;
         }
 
         public async Task<List<RecemNascidoModelo>> GetRecemNascidosMaeParto(int id, string parto)
         {
-            return await _contexto.RecemNascidos.Where(r => r.MaeId == id && r.TipoParto == parto).ToListAsync();
+            var recemNascidos = await _contexto.RecemNascidos.Where(r => r.MaeId == id && r.TipoParto == parto).ToListAsync();
+
+            foreach (var recemNascido in recemNascidos)
+            {
+                if (recemNascido.MaeId != 0) // Verifica se o ID da mãe está definido
+                {
+                    var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+
+                    if (mae != null)
+                    {
+                        recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
+                    }
+                }
+            }
+
+            return recemNascidos;
         }
 
-        public async Task<RecemNascidoModelo> UpdateRecemNascido(RecemNascidoModelo recemNascido)
+        public async Task<RecemNascidoModelo> UpdateRecemNascido(RecemNascidoModelo recemNascido, int id   )
         {
-            _contexto.Entry(recemNascido).State = EntityState.Modified;
+            var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+            var recemExist = await _contexto.RecemNascidos.FindAsync(recemNascido.Id);
+            if (recemExist is null) return null;
+
+            recemExist = recemNascido;
+            recemExist.Mae = mae;
+
             await _contexto.SaveChangesAsync();
-            return recemNascido;
+            return recemExist;
         }
     }
 }

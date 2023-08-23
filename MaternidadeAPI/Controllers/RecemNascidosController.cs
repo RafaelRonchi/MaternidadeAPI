@@ -28,7 +28,7 @@ namespace MaternidadeAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecemNascido(int id)
         {
-            await _recemNascidoServico.DeleterRecemNascido(id);
+            await _recemNascidoServico.DeleteRecemNascido(id);
             return Ok();
         }
 
@@ -40,9 +40,9 @@ namespace MaternidadeAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRecemNascido(RecemNascidoModelo recemNascido)
+        public async Task<IActionResult> UpdateRecemNascido(RecemNascidoModelo recemNascido,int id)
         {
-            var updatedRecemNascido = await _recemNascidoServico.UpdateRecemNascido(recemNascido);
+            var updatedRecemNascido = await _recemNascidoServico.UpdateRecemNascido(recemNascido, id);
             if (updatedRecemNascido == null)
                 return NotFound();
 

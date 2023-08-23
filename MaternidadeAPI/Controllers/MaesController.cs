@@ -36,6 +36,17 @@ namespace MaternidadeAPI.Controllers
             return Ok(model);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<int>> UpdateMae(int id,MaeModelo Genero)
+        {
+            if (id != Genero.Id)
+            {
+                return BadRequest("Id da Gênero na URL não corresponde ao ID no corpo da requisição");
+            }
+            await _maeServico.UpdateMaeAsync(Genero);
+            return NoContent();
+        }
+
         [HttpGet("mae=solteira")]
         public async Task<ActionResult<List<MaeModelo>>> GetMaeSolteiraAsync()
         {

@@ -30,9 +30,10 @@ namespace MaternidadeAPI.Servicos
             return model.Id;
         }
 
-        public Task UpdateMaeAsync(MaeModelo model)
+        public async Task UpdateMaeAsync(MaeModelo model)
         {
-            throw new NotImplementedException();
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
         public Task DeleteGeneroAsync(int id)

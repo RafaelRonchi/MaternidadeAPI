@@ -78,10 +78,10 @@ namespace MaternidadeAPI.Controllers
             return NoContent();
         }
 
-        [HttpGet("mae=solteira")]
-        public async Task<ActionResult<List<MaeModelo>>> GetMaeSolteiraAsync()
+        [HttpGet("estadoCivil/{estadoCivil}")]
+        public async Task<ActionResult<List<MaeModelo>>> GetMaesPorEstadoCivil(string estadoCivil)
         {
-            var maes = await _maeServico.GetMaeSolteiraAsync();
+            var maes = await _maeServico.GetMaesPorEstadoCivilAsync(estadoCivil);
             if (maes == null || maes.Count == 0)
                 return NotFound($"Mãe solteira não encontrada.");
 

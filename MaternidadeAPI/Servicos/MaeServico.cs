@@ -66,10 +66,10 @@ namespace MaternidadeAPI.Servicos
             return true;
         }
 
-        public async Task<List<MaeModelo>> GetMaeSolteiraAsync()
+        public async Task<List<MaeModelo>> GetMaesPorEstadoCivilAsync(string estadoCivil)
         {
             return await _context.Maes
-                .Where(m => m.EstadoCivil == "Solteira")
+                .Where(m => m.EstadoCivil == estadoCivil)
                 .ToListAsync();
         }
 

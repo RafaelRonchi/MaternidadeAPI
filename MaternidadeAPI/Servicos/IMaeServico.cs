@@ -12,7 +12,7 @@ namespace MaternidadeAPI.Servicos
         Task<List<MaeModelo>> GetAllMaesAsync();
         Task<MaeModelo> UpdateHistoricoAsync(int id,HistoricoUpdateDto historicoDto);
         Task<bool> DeleteMaeAsync(int id);
-        Task<List<MaeModelo>> GetMaeSolteiraAsync();
+        Task<List<MaeModelo>> GetMaesPorEstadoCivilAsync(string estadoCivil);
         Task<List<MaeModelo>> GetMaeByEtniaAsync(string nomeEtnia);
         Task<int> GetIdadeMaeByIdAsync(int id);
     }

@@ -46,8 +46,7 @@ namespace MaternidadeAPI.Controllers
         public async Task<IActionResult> GetRecemNascidoGenero(int id,string genero)
         {
             var recemNascido = await _recemNascidoServico.GetRecemNascidoGenero( id ,genero);
-            if (recemNascido == null)
-                return NotFound();
+            if (!recemNascido.Any()) return NotFound();
 
             return Ok(recemNascido);
         }
@@ -57,8 +56,7 @@ namespace MaternidadeAPI.Controllers
         public async Task<IActionResult> GetRecemNascidoPeso(int id,int peso)
         {
             var recemNascido = await _recemNascidoServico.GetRecemNascidoPeso(peso, id);
-            if (recemNascido == null)
-                return NotFound();
+            if (!recemNascido.Any()) return NotFound();
 
             return Ok(recemNascido);
         }
@@ -67,6 +65,7 @@ namespace MaternidadeAPI.Controllers
         public async Task<IActionResult> GetRecemNascidosMae(int id)
         {
             var recemNascidos = await _recemNascidoServico.GetRecemNascidosMae(id);
+            if (!recemNascidos.Any()) return NotFound();
             return Ok(recemNascidos);
         }
 
@@ -74,6 +73,7 @@ namespace MaternidadeAPI.Controllers
         public async Task<IActionResult> GetRecemNascidosMaeParto(int id, string parto)
         {
             var recemNascidos = await _recemNascidoServico.GetRecemNascidosMaeParto(id, parto);
+            if (!recemNascidos.Any()) return NotFound();
             return Ok(recemNascidos);
         }
 
@@ -81,6 +81,7 @@ namespace MaternidadeAPI.Controllers
         public async Task<IActionResult> GetRecemNascidosAll()
         {
             var recemNascidos = await _recemNascidoServico.GetRecemNascidoAll();
+            if (!recemNascidos.Any()) return NotFound();
             return Ok(recemNascidos);
         }
 
@@ -88,6 +89,7 @@ namespace MaternidadeAPI.Controllers
         public async Task<IActionResult> GetRecemNascidosApgar(int apgar )
         {
             var recemNascidos = await _recemNascidoServico.GetRecemnascidoApgar(apgar);
+            if (!recemNascidos.Any()) return NotFound();
             return Ok(recemNascidos);
         }
 
@@ -95,6 +97,7 @@ namespace MaternidadeAPI.Controllers
         public async Task<IActionResult> GetRecemNascidosSaude(string saude)
         {
             var recemNascidos = await _recemNascidoServico.GetRecemNascidosCondicaoSaude(saude);
+            if (!recemNascidos.Any()) return NotFound();
             return Ok(recemNascidos);
         }
 

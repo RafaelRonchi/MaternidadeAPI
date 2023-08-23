@@ -83,7 +83,7 @@ namespace MaternidadeAPI.Controllers
         {
             var maes = await _maeServico.GetMaesPorEstadoCivilAsync(estadoCivil);
             if (maes == null || maes.Count == 0)
-                return NotFound($"Mãe solteira não encontrada.");
+                return NotFound($"Mãe não encontrada.");
             return Ok(maes);
         }
 

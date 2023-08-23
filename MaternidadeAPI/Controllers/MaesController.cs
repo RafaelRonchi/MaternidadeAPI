@@ -1,4 +1,5 @@
-﻿using MaternidadeAPI.Modelo;
+﻿using MaternidadeAPI.DTO;
+using MaternidadeAPI.Modelo;
 using MaternidadeAPI.Servicos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -55,14 +56,14 @@ namespace MaternidadeAPI.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateHistorico(int id,[FromBody] string historico)
+        public async Task<IActionResult> UpdateHistorico(int id,[FromBody] HistoricoUpdateDto historicoDto)
         {
             var maeDb = await _maeServico.GetMaeByIdAsync(id);
             if (maeDb == null)
             {
                 return NotFound();
             }
-            await _maeServico.UpdateHistoricoAsync(id,historico);
+            await _maeServico.UpdateHistoricoAsync(id,historicoDto);
             return Ok(maeDb);
         }
 

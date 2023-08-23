@@ -1,4 +1,5 @@
 ﻿using MaternidadeAPI.Data;
+using MaternidadeAPI.DTO;
 using MaternidadeAPI.Modelo;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,19 +42,19 @@ namespace MaternidadeAPI.Servicos
             return await _context.Maes.ToListAsync();
         }
 
-        public async Task<MaeModelo> UpdateHistoricoAsync(int id,string historico)
+        public async Task<MaeModelo> UpdateHistoricoAsync(int id,HistoricoUpdateDto historicoDto)
         {
             var mae = await _context.Maes.FirstOrDefaultAsync(m => m.Id == id);
             if (mae == null)
             {
                 return null;
             }
-            mae.Historico = historico;
+            mae.Historico = historicoDto.Historico;
             await _context.SaveChangesAsync();
             return mae;
         }
 
-        public Task DeleteGeneroAsync(int id)
+        public Task DeleteMaeAsync(int id)
         {
             throw new NotImplementedException();
         }

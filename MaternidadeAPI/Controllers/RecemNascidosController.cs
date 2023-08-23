@@ -35,7 +35,7 @@ namespace MaternidadeAPI.Controllers
         [HttpPost("maes/{id}/recem-nascidos")]
         public async Task<IActionResult> CreateRecemNascido(int id,RecemNascidoModelo recemNascido)
         {
-            await _recemNascidoServico.CreateRecemNascido(recemNascido);
+             await _recemNascidoServico.CreateRecemNascido(recemNascido, id);
             return Ok();
         }
 

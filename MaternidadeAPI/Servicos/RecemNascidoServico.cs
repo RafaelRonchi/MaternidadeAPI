@@ -1,5 +1,6 @@
 using MaternidadeAPI.Data;
 using MaternidadeAPI.Modelo;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaternidadeAPI.Servicos
@@ -8,10 +9,14 @@ namespace MaternidadeAPI.Servicos
     {
         private readonly DataContext _contexto;
         public RecemNascidoServico(DataContext context) { _contexto = context; }
-        public async Task CreateRecemNascido(RecemNascidoModelo recemNascido)
+        public async Task CreateRecemNascido(RecemNascidoModelo recemNascido, int Id)
         {
-            _contexto.RecemNascidos.Add(recemNascido);
-            await _contexto.SaveChangesAsync();
+            var mae = await _contexto.Maes.FindAsync(Id);
+            if (mae != null)
+            {
+                _contexto.RecemNascidos.Add(recemNascido);
+                await _contexto.SaveChangesAsync();
+            }
         }
 
         public async Task DeleterRecemNascido(int Id)
@@ -31,8 +36,33 @@ namespace MaternidadeAPI.Servicos
 
         public async Task<RecemNascidoModelo> GetRecemNascidoId(int Id)
         {
-            return await _contexto.RecemNascidos.FindAsync(Id);
+            var recemNascido = await _contexto.RecemNascidos.FindAsync(Id);
+
+            if (recemNascido.MaeId != 0) // Verifica se o ID da mãe está definido
+            {
+                var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+
+                if (mae != null)
+                {
+                    recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
+                    recemNascido.Mae.Profissao = mae.Profissao;
+                    recemNascido.Mae.Etnia = mae.Etnia;
+                    recemNascido.Mae.Cpf = mae.Cpf;
+                    recemNascido.Mae.Historico = mae.Historico;
+                    recemNascido.Mae.DataNascimento = mae.DataNascimento;
+                    recemNascido.Mae.Rg = mae.Rg;
+                    recemNascido.Mae.Endereco = mae.Endereco;
+                    recemNascido.Mae.EstadoCivil = mae.EstadoCivil;
+                    recemNascido.Mae.Telefone = mae.Telefone;
+                    recemNascido.Mae.Nome = mae.Nome;
+                    recemNascido.Mae.Sobrenome = mae.Sobrenome;
+                }
+            }
+
+            return recemNascido;
         }
+
+
 
         public async Task<List<RecemNascidoModelo>> GetRecemNascidoPeso(int peso, int id)
         {

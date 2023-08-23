@@ -104,5 +104,21 @@ namespace MaternidadeAPI.Controllers
                 return NotFound($"Mãe com o ID {id} não encontrada.");
             return Ok($"Idade da mãe: {idade} anos");
         }
+
+        [HttpGet("rg/{rg}")]
+        public async Task<IActionResult> GetMaeRg(string rg)
+        {
+            var mae = await _maeServico.GetMaesByRg(rg);
+
+            if (mae != null)
+            {
+                return Ok(mae);
+            }
+            else
+            {
+                return NotFound(); // Retorna um status 404 se a mãe não for encontrada
+            }
+        }
+
     }
 }

@@ -95,6 +95,12 @@ namespace MaternidadeAPI.Servicos
                 age--;
             return age;
         }
+
+        public async Task<MaeModelo> GetMaesByRg(string rg)
+        {
+            return await _context.Maes.FirstOrDefaultAsync(mae => mae.Rg == rg);
+        }
+
     }
 }
 

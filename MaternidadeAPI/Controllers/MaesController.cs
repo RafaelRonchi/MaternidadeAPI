@@ -33,7 +33,7 @@ namespace MaternidadeAPI.Controllers
                 return BadRequest("Id da Gênero na URL não corresponde ao ID no corpo da requisição");
             }
             await _maeServico.CreateMaeAsync(model);
-            return NoContent();
+            return Ok(model);
         }
 
         [HttpGet("mae=solteira")]

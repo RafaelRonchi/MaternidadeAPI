@@ -41,6 +41,18 @@ namespace MaternidadeAPI.Servicos
             return await _context.Maes.ToListAsync();
         }
 
+        public async Task<MaeModelo> UpdateHistoricoAsync(int id,string historico)
+        {
+            var mae = await _context.Maes.FirstOrDefaultAsync(m => m.Id == id);
+            if (mae == null)
+            {
+                return null;
+            }
+            mae.Historico = historico;
+            await _context.SaveChangesAsync();
+            return mae;
+        }
+
         public Task DeleteGeneroAsync(int id)
         {
             throw new NotImplementedException();
@@ -77,6 +89,7 @@ namespace MaternidadeAPI.Servicos
 
             return age;
         }
+
     }
 }
 

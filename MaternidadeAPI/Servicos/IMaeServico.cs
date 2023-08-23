@@ -1,4 +1,5 @@
 ﻿using MaternidadeAPI.Modelo;
+using System.Threading.Tasks;
 
 namespace MaternidadeAPI.Servicos
 {
@@ -8,6 +9,9 @@ namespace MaternidadeAPI.Servicos
         Task<int> CreateMaeAsync(MaeModelo model);
         Task UpdateMaeAsync(MaeModelo model);
         Task<List<MaeModelo>> GetAllMaesAsync();
+        Task<MaeModelo> UpdateHistoricoAsync(int id,string historico);
+
+
 
         Task DeleteGeneroAsync(int id);
 

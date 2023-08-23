@@ -24,9 +24,9 @@ namespace MaternidadeAPI.Servicos
             }
         }
 
-        public async Task<RecemNascidoModelo> GetRecemNascidoGenero(string Genero)
+        public async Task<List<RecemNascidoModelo>> GetRecemNascidoGenero(int Id,string Genero)
         {
-            return await _contexto.RecemNascidos.FirstOrDefaultAsync(r => r.Genero == Genero);
+            return await _contexto.RecemNascidos.Where(r => r.Genero == Genero && r.MaeId == Id).ToListAsync();
         }
 
         public async Task<RecemNascidoModelo> GetRecemNascidoId(int Id)

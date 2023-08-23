@@ -9,38 +9,14 @@ namespace MaternidadeAPI.Controllers
     [ApiController]
     public class RecemNascidosController : ControllerBase
     {
-        private readonly RecemNascidoServico _recemNascidoServico;
+        private readonly IRecemNascidoServico _recemNascidoServico;
 
-        public RecemNascidosController(RecemNascidoServico recemNascidoServico)
+        public RecemNascidosController(IRecemNascidoServico recemNascidoServico)
         {
             _recemNascidoServico = recemNascidoServico;
         }
 
-        //[HttpPost("maes/{id}/recemnascidos")]
-        //public async Task<IActionResult> CreateRecemNascido(int id,RecemNascidoModelo recemNascido)
-        //{
-        //    await _recemNascidoServico.CreateRecemNascido(recemNascido);
-        //    return Ok();
-        //}
-
-        //[HttpDelete("recemnascidos/{id}")]
-        //public async Task<IActionResult> DeleteRecemNascido(int id)
-        //{
-        //    await _recemNascidoServico.DeleterRecemNascido(id);
-        //    return Ok();
-        //}
-
-        //[HttpGet("maes/{id}/recemnascidos/{genero}")]
-        //public async Task<IActionResult> GetRecemNascidoGenero(string genero)
-        //{
-        //    var recemNascido = await _recemNascidoServico.GetRecemNascidoGenero(genero);
-        //    if (recemNascido == null)
-        //        return NotFound();
-
-        //    return Ok(recemNascido);
-        //}
-
-        [HttpGet("recemnascidos/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetRecemNascidoId(int id)
         {
             var recemNascido = await _recemNascidoServico.GetRecemNascidoId(id);
@@ -49,39 +25,65 @@ namespace MaternidadeAPI.Controllers
 
             return Ok(recemNascido);
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRecemNascido(int id)
+        {
+            await _recemNascidoServico.DeleterRecemNascido(id);
+            return Ok();
+        }
 
-        //[HttpGet("maes/{id}/recemnascidos")]
-        //public async Task<IActionResult> GetRecemNascidoPeso(int id,int peso)
-        //{
-        //    var recemNascido = await _recemNascidoServico.GetRecemNascidoPeso(peso, id);
-        //    if (recemNascido == null)
-        //        return NotFound();
+        [HttpPost("maes/{id}/recem-nascidos")]
+        public async Task<IActionResult> CreateRecemNascido(int id,RecemNascidoModelo recemNascido)
+        {
+            await _recemNascidoServico.CreateRecemNascido(recemNascido);
+            return Ok();
+        }
 
-        //    return Ok(recemNascido);
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRecemNascido(RecemNascidoModelo recemNascido)
+        {
+            var updatedRecemNascido = await _recemNascidoServico.UpdateRecemNascido(recemNascido);
+            if (updatedRecemNascido == null)
+                return NotFound();
 
-        //[HttpGet("maes/{id}/recemnascidos")]
-        //public async Task<IActionResult> GetRecemNascidosMae(int id)
-        //{
-        //    var recemNascidos = await _recemNascidoServico.GetRecemNascidosMae(id);
-        //    return Ok(recemNascidos);
-        //}
+            return Ok(updatedRecemNascido);
+        }
 
-        //[HttpGet("maes/{id}/recemnascidos")]
-        //public async Task<IActionResult> GetRecemNascidosMaeParto(int id, string parto)
-        //{
-        //    var recemNascidos = await _recemNascidoServico.GetRecemNascidosMaeParto(id, parto);
-        //    return Ok(recemNascidos);
-        //}
 
-        //[HttpPut("recemnascidos/{id}")]
-        //public async Task<IActionResult> UpdateRecemNascido(RecemNascidoModelo recemNascido)
-        //{
-        //    var updatedRecemNascido = await _recemNascidoServico.UpdateRecemNascido(recemNascido);
-        //    if (updatedRecemNascido == null)
-        //        return NotFound();
+        [HttpGet("maes/{id}/recem-nascidos/{genero}")]
+        public async Task<IActionResult> GetRecemNascidoGenero(int id,string genero)
+        {
+            var recemNascido = await _recemNascidoServico.GetRecemNascidoGenero( id ,genero);
+            if (recemNascido == null)
+                return NotFound();
 
-        //    return Ok(updatedRecemNascido);
-        //}
+            return Ok(recemNascido);
+        }
+
+
+        [HttpGet("maes/{id}/recem-nascidos/peso_min={peso}")]
+        public async Task<IActionResult> GetRecemNascidoPeso(int id,int peso)
+        {
+            var recemNascido = await _recemNascidoServico.GetRecemNascidoPeso(peso, id);
+            if (recemNascido == null)
+                return NotFound();
+
+            return Ok(recemNascido);
+        }
+
+        [HttpGet("maes/{id}/recem-nascidos")]
+        public async Task<IActionResult> GetRecemNascidosMae(int id)
+        {
+            var recemNascidos = await _recemNascidoServico.GetRecemNascidosMae(id);
+            return Ok(recemNascidos);
+        }
+
+        [HttpGet("maes/{id}/recemnascidos/tipo_parto={parto}")]
+        public async Task<IActionResult> GetRecemNascidosMaeParto(int id, string parto)
+        {
+            var recemNascidos = await _recemNascidoServico.GetRecemNascidosMaeParto(id, parto);
+            return Ok(recemNascidos);
+        }
+
     }
 }

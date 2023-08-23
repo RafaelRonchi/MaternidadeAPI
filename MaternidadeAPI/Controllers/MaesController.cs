@@ -49,7 +49,7 @@ namespace MaternidadeAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MaeModelo>>> GetGeneros()
+        public async Task<ActionResult<List<MaeModelo>>> GetMaes()
         {
             var maes = await _maeServico.GetAllMaesAsync();
             return Ok(maes);
@@ -67,7 +67,16 @@ namespace MaternidadeAPI.Controllers
             return Ok(maeDb);
         }
 
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMae(int id)
+        {
+            var mae = await _maeServico.DeleteMaeAsync(id);
+            if (!mae)
+            {
+                return NotFound("Mãe não encontrada.");
+            }
+            return NoContent();
+        }
 
         [HttpGet("mae=solteira")]
         public async Task<ActionResult<List<MaeModelo>>> GetMaeSolteiraAsync()

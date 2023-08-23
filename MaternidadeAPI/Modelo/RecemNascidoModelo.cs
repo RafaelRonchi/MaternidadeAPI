@@ -14,7 +14,10 @@ namespace MaternidadeAPI.Modelo
         [MaxLength(50)]
         public string Genero { get; set; } = string.Empty;
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; } = DateTime.MinValue;
+
         public int PesoGramas { get; set; } = 0;
         public int AlturaCentimetros { get; set; }
 

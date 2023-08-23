@@ -54,9 +54,16 @@ namespace MaternidadeAPI.Servicos
             return mae;
         }
 
-        public Task DeleteMaeAsync(int id)
+        public async Task<bool> DeleteMaeAsync(int id)
         {
-            throw new NotImplementedException();
+            var maeDb = await _context.Maes.FindAsync(id);
+            if (maeDb == null)
+            {
+                return false;
+            }
+            _context.Maes.Remove(maeDb);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<List<MaeModelo>> GetMaeSolteiraAsync()

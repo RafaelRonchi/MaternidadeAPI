@@ -28,7 +28,6 @@ namespace MaternidadeAPI.Modelo
         public string CondicaoSaude { get; set; }
 
         public int MaeId { get; set; }
-
         public MaeModelo Mae { get; set; }
     }
 }

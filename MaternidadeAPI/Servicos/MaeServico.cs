@@ -15,7 +15,7 @@ namespace MaternidadeAPI.Servicos
 
         public async Task<MaeModelo> GetMaeByIdAsync(int id)
         {
-            var mae = await _context.Maes.SingleOrDefaultAsync(m => m.Id == id);
+            var mae = await _context.Maes.FirstOrDefaultAsync(m => m.Id == id);
             if (mae == null)
             {
                 return mae;
@@ -44,8 +44,6 @@ namespace MaternidadeAPI.Servicos
         {
             throw new NotImplementedException();
         }
-
-
 
         public async Task<List<MaeModelo>> GetMaeSolteiraAsync()
         {
@@ -77,9 +75,7 @@ namespace MaternidadeAPI.Servicos
                 age--;
 
             return age;
-
         }
-
     }
 }
 

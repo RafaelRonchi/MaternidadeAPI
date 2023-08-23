@@ -20,6 +20,8 @@ namespace MaternidadeAPI.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var mae = await _maeServico.GetMaeByIdAsync(id);
+            if (mae == null)
+                return NotFound($"Mãe com ID {id} não encontrada.");
             return Ok(mae);
         }
 
@@ -33,9 +35,6 @@ namespace MaternidadeAPI.Controllers
             await _maeServico.CreateMaeAsync(model);
             return NoContent();
         }
-
-
-
 
         [HttpGet("mae=solteira")]
         public async Task<ActionResult<List<MaeModelo>>> GetMaeSolteiraAsync()

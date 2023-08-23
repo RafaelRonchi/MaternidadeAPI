@@ -1,4 +1,5 @@
-﻿using MaternidadeAPI.Modelo;
+﻿using MaternidadeAPI.DTO;
+using MaternidadeAPI.Modelo;
 using MaternidadeAPI.Servicos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -115,13 +116,5 @@ namespace MaternidadeAPI.Controllers
 
             return Ok(updatedRecemNascido);
         }
-
-        public class UpdateRecemNascidoDto
-        {
-            public int PesoGramas { get; set; }
-            public int AlturaCentimetros { get; set; }
-        }
-
-
     }
 }

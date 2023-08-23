@@ -8,6 +8,7 @@ namespace MaternidadeAPI.Servicos
         Task<int> CreateMaeAsync(MaeModelo model);
         Task UpdateMaeAsync(MaeModelo model);
         Task<List<MaeModelo>> GetAllMaesAsync();
+
         Task DeleteGeneroAsync(int id);
 
 

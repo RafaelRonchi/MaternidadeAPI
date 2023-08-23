@@ -47,6 +47,14 @@ namespace MaternidadeAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<MaeModelo>>> GetGeneros()
+        {
+            var maes = await _maeServico.GetAllMaesAsync();
+            return Ok(maes);
+        }
+
+
         [HttpGet("mae=solteira")]
         public async Task<ActionResult<List<MaeModelo>>> GetMaeSolteiraAsync()
         {

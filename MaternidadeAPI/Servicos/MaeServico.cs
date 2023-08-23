@@ -36,12 +36,12 @@ namespace MaternidadeAPI.Servicos
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteGeneroAsync(int id)
+        public async Task<List<MaeModelo>> GetAllMaesAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Maes.ToListAsync();
         }
 
-        public Task<List<MaeModelo>> GetAllMaesAsync()
+        public Task DeleteGeneroAsync(int id)
         {
             throw new NotImplementedException();
         }

@@ -74,6 +74,27 @@ namespace MaternidadeAPI.Controllers
             return Ok(recemNascidos);
         }
 
+        [HttpGet("/Todos-recem-nascidos")]
+        public async Task<IActionResult> GetRecemNascidosAll()
+        {
+            var recemNascidos = await _recemNascidoServico.GetRecemNascidoAll();
+            return Ok(recemNascidos);
+        }
+
+        [HttpGet("/Apgar/{apgar}")]
+        public async Task<IActionResult> GetRecemNascidosApgar(int apgar )
+        {
+            var recemNascidos = await _recemNascidoServico.GetRecemnascidoApgar(apgar);
+            return Ok(recemNascidos);
+        }
+
+        [HttpGet("/Saude/{saude}")]
+        public async Task<IActionResult> GetRecemNascidosSaude(string saude)
+        {
+            var recemNascidos = await _recemNascidoServico.GetRecemNascidosCondicaoSaude(saude);
+            return Ok(recemNascidos);
+        }
+
         [HttpPut("atualizarRecem/{id}")]
         public async Task<IActionResult> UpdateRecemNascidoWeightAndHeight(int id, [FromBody] UpdateRecemNascidoDto updateDto)
         {

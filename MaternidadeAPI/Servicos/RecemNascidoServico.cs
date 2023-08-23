@@ -149,5 +149,64 @@ namespace MaternidadeAPI.Servicos
             return recemNascido;
         }
 
+        async Task<List<RecemNascidoModelo>> IRecemNascidoServico.GetRecemNascidoAll()
+        {
+            var recemNascidos = await _contexto.RecemNascidos.ToListAsync();
+            foreach (var recemNascido in recemNascidos)
+            {
+                if (recemNascido.MaeId != 0) // Verifica se o ID da mãe está definido
+                {
+                    var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+
+                    if (mae != null)
+                    {
+                        recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
+                    }
+                }
+            }
+
+            return recemNascidos;
+
+        }
+
+        async Task<List<RecemNascidoModelo>> IRecemNascidoServico.GetRecemnascidoApgar(int Apgar)
+        {
+            var recemNascidos = await _contexto.RecemNascidos.Where(r => r.Apgar== Apgar).ToListAsync();
+
+            foreach (var recemNascido in recemNascidos)
+            {
+                if (recemNascido.MaeId != 0) // Verifica se o ID da mãe está definido
+                {
+                    var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+
+                    if (mae != null)
+                    {
+                        recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
+                    }
+                }
+            }
+
+            return recemNascidos;
+        }
+
+        async Task<List<RecemNascidoModelo>> IRecemNascidoServico.GetRecemNascidosCondicaoSaude(string saude)
+        {
+            var recemNascidos = await _contexto.RecemNascidos.Where(r => r.CondicaoSaude == saude).ToListAsync();
+
+            foreach (var recemNascido in recemNascidos)
+            {
+                if (recemNascido.MaeId != 0) // Verifica se o ID da mãe está definido
+                {
+                    var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
+
+                    if (mae != null)
+                    {
+                        recemNascido.Mae = mae; // Atualiza o objeto Mae no recemNascido
+                    }
+                }
+            }
+
+            return recemNascidos;
+        }
     }
 }

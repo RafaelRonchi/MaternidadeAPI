@@ -35,7 +35,7 @@ namespace MaternidadeAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecemNascido",
+                name: "RecemNascidos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)

@@ -52,6 +52,25 @@ namespace MaternidadeAPI.Servicos
                 .ToListAsync();
         }
 
+        public async Task<int> GetIdadeMaeByIdAsync(int id)
+        {
+            var mae = await _context.Maes.SingleOrDefaultAsync(m => m.Id == id);
+            if (mae == null)
+            {
+                return -1; // Indicar que a mãe não foi encontrada
+            }
+
+            var birthDate = mae.DataNascimento;
+            var today = DateTime.Today;
+            var age = today.Year - birthDate.Year;
+
+            if (birthDate > today.AddYears(-age))
+                age--;
+
+            return age;
+
+        }
+
     }
 }
 

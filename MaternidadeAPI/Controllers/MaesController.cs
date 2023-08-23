@@ -43,5 +43,15 @@ namespace MaternidadeAPI.Controllers
 
             return Ok(maes);
         }
+
+        [HttpGet("idade/{id}")]
+        public async Task<IActionResult> GetMaeIdade(int id)
+        {
+            var idade = await _maeServico.GetIdadeMaeByIdAsync(id);
+            if (idade == -1)
+                return NotFound($"Mãe com o ID {id} não encontrada.");
+
+            return Ok($"Idade da mãe: {idade} anos");
+        }
     }
 }

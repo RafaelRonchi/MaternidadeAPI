@@ -11,5 +11,6 @@ namespace MaternidadeAPI.Servicos
         Task DeleteGeneroAsync(int id);
 
         Task<List<MaeModelo>> GetMaeByEtniaAsync(string nomeEtnia);
+        Task<int> GetIdadeMaeByIdAsync(int id);
     }
 }

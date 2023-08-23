@@ -9,5 +9,7 @@ namespace MaternidadeAPI.Servicos
         Task UpdateMaeAsync(MaeModelo model);
         Task<List<MaeModelo>> GetAllMaesAsync();
         Task DeleteGeneroAsync(int id);
+
+        Task<List<MaeModelo>> GetMaeByEtniaAsync(string nomeEtnia);
     }
 }

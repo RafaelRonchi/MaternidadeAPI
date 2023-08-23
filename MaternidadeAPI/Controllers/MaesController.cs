@@ -33,5 +33,15 @@ namespace MaternidadeAPI.Controllers
             await _maeServico.CreateMaeAsync(model);
             return NoContent();
         }
+
+        [HttpGet("etnia/{etnia}")]
+        public async Task<ActionResult<List<MaeModelo>>> GetMaeByEtniaAsync(string etnia)
+        {
+            var maes = await _maeServico.GetMaeByEtniaAsync(etnia);
+            if (maes == null || maes.Count == 0)
+                return NotFound($"Mãe com a etnia {etnia} não encontrada.");
+
+            return Ok(maes);
+        }
     }
 }

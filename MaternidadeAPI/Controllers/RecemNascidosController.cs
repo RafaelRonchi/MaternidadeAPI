@@ -39,17 +39,6 @@ namespace MaternidadeAPI.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRecemNascido(RecemNascidoModelo recemNascido,int id)
-        {
-            var updatedRecemNascido = await _recemNascidoServico.UpdateRecemNascido(recemNascido, id);
-            if (updatedRecemNascido == null)
-                return NotFound();
-
-            return Ok(updatedRecemNascido);
-        }
-
-
         [HttpGet("maes/{id}/recem-nascidos/{genero}")]
         public async Task<IActionResult> GetRecemNascidoGenero(int id,string genero)
         {
@@ -84,6 +73,32 @@ namespace MaternidadeAPI.Controllers
             var recemNascidos = await _recemNascidoServico.GetRecemNascidosMaeParto(id, parto);
             return Ok(recemNascidos);
         }
+
+        [HttpPut("atualizarRecem/{id}")]
+        public async Task<IActionResult> UpdateRecemNascidoWeightAndHeight(int id, [FromBody] UpdateRecemNascidoDto updateDto)
+        {
+            if (updateDto == null)
+            {
+                return BadRequest("Invalid payload");
+            }
+
+            var updatedRecemNascido = await _recemNascidoServico.UpdateRecemNascidoWeightAndHeight(
+                id, updateDto.PesoGramas, updateDto.AlturaCentimetros);
+
+            if (updatedRecemNascido == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedRecemNascido);
+        }
+
+        public class UpdateRecemNascidoDto
+        {
+            public int PesoGramas { get; set; }
+            public int AlturaCentimetros { get; set; }
+        }
+
 
     }
 }

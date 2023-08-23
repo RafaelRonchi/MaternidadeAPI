@@ -132,17 +132,22 @@ namespace MaternidadeAPI.Servicos
             return recemNascidos;
         }
 
-        public async Task<RecemNascidoModelo> UpdateRecemNascido(RecemNascidoModelo recemNascido, int id   )
+        public async Task<RecemNascidoModelo> UpdateRecemNascidoWeightAndHeight(int id, int pesoGramas, int alturaCentimetros)
         {
-            var mae = await _contexto.Maes.FindAsync(recemNascido.MaeId);
-            var recemExist = await _contexto.RecemNascidos.FindAsync(recemNascido.Id);
-            if (recemExist is null) return null;
+            var recemNascido = await _contexto.RecemNascidos.FindAsync(id);
 
-            recemExist = recemNascido;
-            recemExist.Mae = mae;
+            if (recemNascido == null)
+            {
+                return null; // Newborn not found
+            }
+
+            recemNascido.PesoGramas = pesoGramas;
+            recemNascido.AlturaCentimetros = alturaCentimetros;
 
             await _contexto.SaveChangesAsync();
-            return recemExist;
+
+            return recemNascido;
         }
+
     }
 }

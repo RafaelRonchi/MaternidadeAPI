@@ -84,27 +84,24 @@ namespace MaternidadeAPI.Controllers
             var maes = await _maeServico.GetMaesPorEstadoCivilAsync(estadoCivil);
             if (maes == null || maes.Count == 0)
                 return NotFound($"Mãe solteira não encontrada.");
-
             return Ok(maes);
         }
 
         [HttpGet("etnia/{etnia}")]
-        public async Task<ActionResult<List<MaeModelo>>> GetMaeByEtniaAsync(string etnia)
+        public async Task<ActionResult<List<MaeModelo>>> GetMaesByEtnia(string etnia)
         {
-            var maes = await _maeServico.GetMaeByEtniaAsync(etnia);
+            var maes = await _maeServico.GetMaesByEtniaAsync(etnia);
             if (maes == null || maes.Count == 0)
                 return NotFound($"Mãe com a etnia {etnia} não encontrada.");
-
             return Ok(maes);
         }
 
-        [HttpGet("idade/{id}")]
+        [HttpGet("{id}/idade")]
         public async Task<IActionResult> GetMaeIdade(int id)
         {
-            var idade = await _maeServico.GetIdadeMaeByIdAsync(id);
+            var idade = await _maeServico.GetMaeIdadeAsync(id);
             if (idade == -1)
                 return NotFound($"Mãe com o ID {id} não encontrada.");
-
             return Ok($"Idade da mãe: {idade} anos");
         }
     }
